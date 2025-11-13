@@ -30,18 +30,18 @@ export default function Model({ scrollProgress }: ModelProps) {
   } = useControls({
     mode: { value: 'surfaces', options: ['lines', 'surfaces'] },
     lineDensity: { value: 50, min: 20, max: 100, step: 5 },
-    animationSpeed: { value: 0.2, min: 0, max: 2, step: 0.01 },
+    animationSpeed: { value: 0.15, min: 0, max: 2, step: 0.01 },
     waveAmplitude: { value: 0.3, min: 0, max: 1, step: 0.05 },
     scale: { value: 0.5, min: 0.5, max: 5, step: 0.1 },
     journeySpeed: { value: 1.0, min: 0, max: 3, step: 0.1 },
     color: { value: '#E6E2DD', label: 'Color' },
     lineWidth: { value: 0.1, min: 0.01, max: 0.5, step: 0.01 },
     numContours: { value: 15, min: 5, max: 30, step: 1 },
-    lightIntensity: { value: 0.3, min: 0, max: 2, step: 0.1 },
+    lightIntensity: { value: 0.15, min: 0, max: 2, step: 0.05 },
     warpStrength: { value: 0.5, min: 0, max: 2, step: 0.1, label: 'Warp Strength' },
-    flowAngle: { value: 0.0, min: 0, max: 360, step: 1, label: 'Flow Angle (degrees)' },
-    flowStrength: { value: 0.3, min: 0, max: 2, step: 0.1, label: 'Flow Strength' },
-    anisotropy: { value: 2.0, min: 0.1, max: 5, step: 0.1, label: 'Anisotropy' }
+    flowAngle: { value: 116, min: 0, max: 360, step: 1, label: 'Flow Angle (degrees)' },
+    flowStrength: { value: 0.6, min: 0, max: 2, step: 0.1, label: 'Flow Strength' },
+    anisotropy: { value: 0.5, min: 0.1, max: 5, step: 0.1, label: 'Anisotropy' }
   });
 
   const meshRef = useRef<THREE.Mesh>(null);
