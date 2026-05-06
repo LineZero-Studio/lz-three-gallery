@@ -1,8 +1,7 @@
 import React, { useRef, Suspense } from 'react'
-import { useControls } from 'leva';
 import { fragment, vertex } from './Shader';
 import { useFrame, useThree } from '@react-three/fiber';
-import { useTexture, useAspect, useVideoTexture } from '@react-three/drei'
+import { useTexture, useAspect } from '@react-three/drei'
 import * as THREE from 'three';
 import { MotionValue, transform } from "framer-motion"
 
@@ -33,10 +32,8 @@ export default function Model({scrollProgress}) {
         setCurrentAnimation("normal");
     }
 
-    const { amplitude, waveLength } = useControls({
-        amplitude: { value: 0.5, min: 0, max: 2, step: 0.1 },
-        waveLength: { value: 3, min: 0, max: 20, step: 0.5 },
-    })
+    const amplitude = 0.5;
+    const waveLength = 3;
 
     const uniforms = useRef({
         uTime: { value: 0 },

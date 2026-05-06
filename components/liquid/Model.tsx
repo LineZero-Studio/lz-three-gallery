@@ -1,5 +1,4 @@
 import React, { useRef } from 'react'
-import { useControls } from 'leva';
 import { vertex, fragment } from './Shader';
 import { useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
@@ -12,37 +11,18 @@ interface ModelProps {
 export default function Model({ scrollProgress }: ModelProps) {
   const { viewport, camera } = useThree();
   
-  const {
-    mode,
-    lineDensity,
-    animationSpeed,
-    waveAmplitude,
-    scale,
-    journeySpeed,
-    color,
-    lineWidth,
-    numContours,
-    lightIntensity,
-    warpStrength,
-    flowAngle,
-    flowStrength,
-    anisotropy
-  } = useControls({
-    mode: { value: 'surfaces', options: ['lines', 'surfaces'] },
-    lineDensity: { value: 50, min: 20, max: 100, step: 5 },
-    animationSpeed: { value: 0.15, min: 0, max: 2, step: 0.01 },
-    waveAmplitude: { value: 0.3, min: 0, max: 1, step: 0.05 },
-    scale: { value: 0.5, min: 0.5, max: 5, step: 0.1 },
-    journeySpeed: { value: 1.0, min: 0, max: 3, step: 0.1 },
-    color: { value: '#E6E2DD', label: 'Color' },
-    lineWidth: { value: 0.1, min: 0.01, max: 0.5, step: 0.01 },
-    numContours: { value: 15, min: 5, max: 30, step: 1 },
-    lightIntensity: { value: 0.15, min: 0, max: 2, step: 0.05 },
-    warpStrength: { value: 0.5, min: 0, max: 2, step: 0.1, label: 'Warp Strength' },
-    flowAngle: { value: 116, min: 0, max: 360, step: 1, label: 'Flow Angle (degrees)' },
-    flowStrength: { value: 0.6, min: 0, max: 2, step: 0.1, label: 'Flow Strength' },
-    anisotropy: { value: 0.5, min: 0.1, max: 5, step: 0.1, label: 'Anisotropy' }
-  });
+  const lineDensity = 50;
+  const animationSpeed = 0.15;
+  const waveAmplitude = 0.3;
+  const scale = 0.5;
+  const color = '#E6E2DD';
+  const lineWidth = 0.1;
+  const numContours = 15;
+  const lightIntensity = 0.15;
+  const warpStrength = 0.5;
+  const flowAngle = 116;
+  const flowStrength = 0.6;
+  const anisotropy = 0.5;
 
   const meshRef = useRef<THREE.Mesh>(null);
   const timeRef = useRef(0);
@@ -55,7 +35,7 @@ export default function Model({ scrollProgress }: ModelProps) {
     uColor: { value: new THREE.Color(color) },
     uLineWidth: { value: lineWidth },
     uNumContours: { value: numContours },
-    uMode: { value: mode === 'lines' ? 0.0 : 1.0 },
+    uMode: { value: 1.0 },
     uLightIntensity: { value: lightIntensity },
     uWarpStrength: { value: warpStrength },
     uFlowAngle: { value: (flowAngle * Math.PI) / 180.0 },
@@ -81,7 +61,7 @@ export default function Model({ scrollProgress }: ModelProps) {
     uniforms.current.uColor.value = new THREE.Color(color);
     uniforms.current.uLineWidth.value = lineWidth;
     uniforms.current.uNumContours.value = numContours;
-    uniforms.current.uMode.value = mode === 'lines' ? 0.0 : 1.0;
+    uniforms.current.uMode.value = 1.0;
     uniforms.current.uLightIntensity.value = lightIntensity;
     uniforms.current.uWarpStrength.value = warpStrength;
     uniforms.current.uFlowAngle.value = (flowAngle * Math.PI) / 180.0; // Convert degrees to radians
@@ -103,9 +83,9 @@ export default function Model({ scrollProgress }: ModelProps) {
         vertexShader={vertex}
         fragmentShader={fragment}
         uniforms={uniforms.current}
-        transparent={mode === 'lines'}
+        transparent={false}
         side={THREE.DoubleSide}
-        depthWrite={mode === 'surfaces'}
+        depthWrite
       />
     </mesh>
   );
